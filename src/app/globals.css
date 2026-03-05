@@ -11,12 +11,12 @@
   --text-tertiary: #B5B0C0;
   /* Light lavender */
 
-  --primary: #E8A0BF;
-  /* Soft rose pink */
-  --primary-hover: #D88AAE;
-  /* Deeper rose */
-  --primary-light: #FCF0F5;
-  /* Very light pink */
+  --primary: #7EB5A8;
+  /* Warm sage green */
+  --primary-hover: #6DA49A;
+  /* Deeper sage */
+  --primary-light: #EFF7F5;
+  /* Very light sage */
 
   --accent: #FCE4B8;
   /* Warm golden cream */
@@ -43,7 +43,7 @@
   --shadow-sm: 0 2px 8px rgba(74, 68, 88, 0.06);
   --shadow-md: 0 4px 20px rgba(74, 68, 88, 0.08);
   --shadow-lg: 0 8px 32px rgba(74, 68, 88, 0.12);
-  --shadow-hover: 0 8px 30px rgba(232, 160, 191, 0.15);
+  --shadow-hover: 0 8px 30px rgba(126, 181, 168, 0.18);
 
   --font-sans: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 
@@ -149,7 +149,7 @@ a {
 
 .logo span {
   font-weight: 800;
-  background: linear-gradient(135deg, var(--primary), #C084A0);
+  background: linear-gradient(135deg, var(--primary), #5A9E8F);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -203,7 +203,7 @@ a {
   align-items: center;
   justify-content: center;
   padding: var(--spacing-md);
-  background: linear-gradient(160deg, #FBF8F4 0%, #FCF0F5 40%, #EDE4F3 70%, #CEDEEF 100%);
+  background: linear-gradient(160deg, #FBF8F4 0%, #EFF7F5 40%, #E8F0ED 70%, #CEDEEF 100%);
 }
 
 .login-card {
@@ -257,7 +257,7 @@ a {
   outline: none;
   border-color: var(--primary);
   background-color: var(--surface);
-  box-shadow: 0 0 0 3px rgba(232, 160, 191, 0.15);
+  box-shadow: 0 0 0 3px rgba(126, 181, 168, 0.2);
 }
 
 .input::placeholder {
@@ -291,13 +291,13 @@ a {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary), #D88AAE);
+  background: linear-gradient(135deg, var(--primary), #6DA49A);
   color: white;
-  box-shadow: 0 2px 8px rgba(232, 160, 191, 0.3);
+  box-shadow: 0 2px 8px rgba(126, 181, 168, 0.3);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 4px 16px rgba(232, 160, 191, 0.4);
+  box-shadow: 0 4px 16px rgba(126, 181, 168, 0.4);
   transform: translateY(-1px);
 }
 

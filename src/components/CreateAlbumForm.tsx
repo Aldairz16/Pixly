@@ -227,7 +227,7 @@ export default function CreateAlbumForm() {
                             />
 
                             {/* Overlay Guidelines */}
-                            <div style={{ position: 'absolute', inset: 0, border: '2px solid rgba(232, 160, 191, 0.3)', pointerEvents: 'none', borderRadius: 'var(--radius)' }} />
+                            <div style={{ position: 'absolute', inset: 0, border: '2px solid rgba(126, 181, 168, 0.3)', pointerEvents: 'none', borderRadius: 'var(--radius)' }} />
                         </div>
 
                         {/* Zoom Control */}

@@ -57,7 +57,7 @@ export default function LoginPage() {
                     <h1 style={{
                         fontSize: '2rem',
                         fontWeight: 800,
-                        background: 'linear-gradient(135deg, var(--primary), #C084A0)',
+                        background: 'linear-gradient(135deg, var(--primary), #5A9E8F)',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
