@@ -1,7 +1,7 @@
 
 import { createClient } from "@/utils/supabase/server"
 import Link from "next/link"
-import { Plus, Folder } from "lucide-react"
+import { Plus, Folder, ImageIcon } from "lucide-react"
 import { redirect } from "next/navigation"
 import LogoutButton from "@/components/LogoutButton"
 
@@ -26,7 +26,7 @@ export default async function Home() {
         <>
             <header className="app-header">
                 <div className="logo">
-                    <span>Pixly</span> Workspace
+                    <span>Pixly</span> Familia
                 </div>
 
                 <div className="header-actions" style={{ display: 'flex', gap: '12px' }}>
@@ -35,44 +35,73 @@ export default async function Home() {
             </header>
 
             <main className="main-content">
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
                     <h2 style={{
-                        fontSize: '14px',
-                        fontWeight: 600,
-                        color: '#999',
+                        fontSize: '15px',
+                        fontWeight: 700,
+                        color: 'var(--text-secondary)',
                         textTransform: 'uppercase',
-                        letterSpacing: '0.05em',
+                        letterSpacing: '0.08em',
                         paddingLeft: '2px'
                     }}>
-                        Mis Galerías
+                        📸 Mis Galerías
                     </h2>
-                    <Link href="/create-gallery" className="btn btn-primary" style={{ height: '28px', fontSize: '13px' }}>
-                        <Plus size={14} style={{ marginRight: '4px' }} />
+                    <Link href="/create-gallery" className="btn btn-primary" style={{ height: '34px', fontSize: '13px', borderRadius: '12px' }}>
+                        <Plus size={15} style={{ marginRight: '4px' }} />
                         <span>Nueva Galería</span>
                     </Link>
                 </div>
 
                 {galleries && galleries.length > 0 ? (
                     <div className="gallery-grid">
-                        {galleries.map((gallery) => (
+                        {galleries.map((gallery, index) => (
                             <Link key={gallery.id} href={`/gallery/${gallery.id}`} style={{ textDecoration: 'none' }}>
                                 <div style={{
-                                    backgroundColor: '#252525',
-                                    borderRadius: '3px',
-                                    padding: '16px',
+                                    backgroundColor: 'var(--surface)',
+                                    borderRadius: 'var(--radius)',
+                                    padding: '20px',
                                     display: 'flex',
                                     flexDirection: 'column',
                                     gap: '12px',
-                                    boxShadow: 'rgba(15, 15, 15, 0.1) 0px 0px 0px 1px',
-                                    transition: 'background-color 0.2s',
+                                    boxShadow: 'var(--shadow-sm)',
+                                    border: '1px solid var(--border)',
+                                    transition: 'all 0.3s ease',
                                     height: '100%',
-                                    minHeight: '120px'
-                                }} className="hover:bg-[#2a2a2a]">
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#e8eaed' }}>
-                                        <Folder size={18} fill="#e8eaed" fillOpacity={0.2} />
-                                        <h3 style={{ fontSize: '15px', fontWeight: 500 }}>{gallery.title}</h3>
+                                    minHeight: '130px',
+                                    cursor: 'pointer',
+                                    animation: `fadeIn 0.4s ease-out ${index * 0.05}s both`
+                                }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(-3px)'
+                                        e.currentTarget.style.boxShadow = 'var(--shadow-hover)'
+                                        e.currentTarget.style.borderColor = 'var(--primary)'
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = 'translateY(0)'
+                                        e.currentTarget.style.boxShadow = 'var(--shadow-sm)'
+                                        e.currentTarget.style.borderColor = 'var(--border)'
+                                    }}
+                                >
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--foreground)' }}>
+                                        <div style={{
+                                            width: '36px', height: '36px',
+                                            borderRadius: '10px',
+                                            background: 'linear-gradient(135deg, var(--primary-light), var(--accent))',
+                                            display: 'flex', alignItems: 'center', justifyContent: 'center'
+                                        }}>
+                                            <Folder size={18} color="var(--primary)" />
+                                        </div>
+                                        <h3 style={{ fontSize: '15px', fontWeight: 700 }}>{gallery.title}</h3>
                                     </div>
-                                    <div style={{ fontSize: '12px', color: '#999', marginTop: 'auto' }}>
+                                    <div style={{
+                                        fontSize: '13px',
+                                        color: 'var(--text-secondary)',
+                                        marginTop: 'auto',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '4px'
+                                    }}>
+                                        <ImageIcon size={13} />
                                         {gallery.albums?.[0]?.count || 0} álbumes
                                     </div>
                                 </div>
@@ -85,15 +114,26 @@ export default async function Home() {
                         flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        padding: '64px 0',
-                        opacity: 0.6
+                        padding: '80px 0',
+                        animation: 'fadeIn 0.5s ease-out'
                     }}>
-                        <div style={{ marginBottom: '16px' }}>
-                            <Folder size={48} className="text-gray-500" />
+                        <div style={{
+                            width: '80px', height: '80px',
+                            borderRadius: '20px',
+                            background: 'linear-gradient(135deg, var(--primary-light), var(--accent))',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            marginBottom: '20px'
+                        }}>
+                            <Folder size={36} color="var(--primary)" />
                         </div>
-                        <p style={{ marginBottom: '16px', fontSize: '14px' }}>No tienes galerías</p>
+                        <p style={{ marginBottom: '8px', fontSize: '16px', fontWeight: 700, color: 'var(--foreground)' }}>
+                            ¡Empieza a crear recuerdos!
+                        </p>
+                        <p style={{ marginBottom: '20px', fontSize: '14px', color: 'var(--text-secondary)' }}>
+                            Crea tu primera galería para organizar tus fotos
+                        </p>
                         <Link href="/create-gallery" className="btn btn-primary">
-                            Crear Galería
+                            ✨ Crear Galería
                         </Link>
                     </div>
                 )}

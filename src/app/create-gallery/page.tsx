@@ -46,16 +46,21 @@ export default function CreateGalleryPage() {
     }
 
     return (
-        <div className="login-container" style={{ padding: '0 16px', flexDirection: 'column', justifyContent: 'flex-start', paddingTop: '40px' }}>
-            <div style={{ width: '100%', maxWidth: '400px', marginBottom: '24px' }}>
-                <Link href="/" className="btn-link" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#e8eaed' }}>
+        <div className="login-container" style={{ flexDirection: 'column', justifyContent: 'flex-start', paddingTop: '60px' }}>
+            <div style={{ width: '100%', maxWidth: '420px', marginBottom: '20px' }}>
+                <Link href="/" className="btn-link" style={{
+                    display: 'flex', alignItems: 'center', gap: '6px',
+                    color: 'var(--foreground)', fontWeight: 600
+                }}>
                     <ArrowLeft size={16} />
                     <span>Volver</span>
                 </Link>
             </div>
 
             <form onSubmit={handleSubmit} className="login-card">
-                <h2 className="login-title" style={{ fontSize: '1.25rem', marginBottom: '24px' }}>Nueva Galería</h2>
+                <h2 className="login-title" style={{ fontSize: '1.25rem', marginBottom: '24px' }}>
+                    📁 Nueva Galería
+                </h2>
 
                 {error && <div className="message message-error">{error}</div>}
 
@@ -65,13 +70,13 @@ export default function CreateGalleryPage() {
                         className="input"
                         value={title}
                         onChange={e => setTitle(e.target.value)}
-                        placeholder="Ej. Europa"
+                        placeholder="Ej. Recuerdos en familia"
                         autoFocus
                     />
                 </div>
 
                 <button type="submit" disabled={loading} className="btn btn-primary btn-full mt-4">
-                    {loading ? <Loader2 className="animate-spin" size={16} /> : "Crear Galería"}
+                    {loading ? <Loader2 className="animate-spin" size={16} /> : "✨ Crear Galería"}
                 </button>
             </form>
         </div>

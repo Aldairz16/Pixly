@@ -29,7 +29,7 @@ export default function LoginPage() {
                     }
                 })
                 if (error) throw error
-                setMessage({ text: "Check your email for the confirmation link!", type: "success" })
+                setMessage({ text: "¡Revisa tu email para confirmar tu cuenta!", type: "success" })
             } else {
                 const { error } = await supabase.auth.signInWithPassword({
                     email,
@@ -40,7 +40,7 @@ export default function LoginPage() {
                 router.push("/")
             }
         } catch (err: unknown) {
-            let errorMessage = "An error occurred"
+            let errorMessage = "Ocurrió un error"
             if (err instanceof Error) {
                 errorMessage = err.message
             }
@@ -53,13 +53,25 @@ export default function LoginPage() {
     return (
         <div className="login-container">
             <div className="login-card">
-                <div className="text-center mb-8">
-                    <h1 className="text-3xl font-bold mb-2">Pixly</h1>
-                    <p className="text-gray-400">Comparte tus momentos favoritos</p>
+                <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+                    <h1 style={{
+                        fontSize: '2rem',
+                        fontWeight: 800,
+                        background: 'linear-gradient(135deg, var(--primary), #C084A0)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        marginBottom: '6px'
+                    }}>
+                        Pixly
+                    </h1>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>
+                        Comparte tus momentos favoritos en familia 📸
+                    </p>
                 </div>
-                <h1 className="login-title">
-                    {isSignUp ? "Create Account" : "Welcome Back"}
-                </h1>
+                <h2 className="login-title" style={{ fontSize: '1.25rem' }}>
+                    {isSignUp ? "Crear Cuenta" : "¡Bienvenido de vuelta!"}
+                </h2>
 
                 <form onSubmit={handleAuth}>
                     {message && (
@@ -76,12 +88,12 @@ export default function LoginPage() {
                             onChange={(e) => setEmail(e.target.value)}
                             className="input"
                             required
-                            placeholder="you@example.com"
+                            placeholder="tu@email.com"
                         />
                     </div>
 
                     <div className="form-group">
-                        <label className="label">Password</label>
+                        <label className="label">Contraseña</label>
                         <input
                             type="password"
                             value={password}
@@ -97,19 +109,20 @@ export default function LoginPage() {
                         {loading ? (
                             <div className="flex-center">
                                 <Loader2 className="animate-spin" size={18} />
-                                <span>Processing...</span>
+                                <span>Procesando...</span>
                             </div>
-                        ) : (isSignUp ? "Sign Up" : "Log In")}
+                        ) : (isSignUp ? "Registrarme" : "Iniciar Sesión")}
                     </button>
                 </form>
 
-                <div className="mt-4 text-center text-sm text-gray">
-                    <span>{isSignUp ? "Already have an account?" : "Don't have an account?"}</span>{" "}
+                <div style={{ marginTop: '20px', textAlign: 'center', fontSize: '14px', color: 'var(--text-secondary)' }}>
+                    <span>{isSignUp ? "¿Ya tienes cuenta?" : "¿No tienes cuenta?"}</span>{" "}
                     <button
                         onClick={() => setIsSignUp(!isSignUp)}
                         className="btn-link"
+                        style={{ color: 'var(--primary)', fontWeight: 700 }}
                     >
-                        {isSignUp ? "Log In" : "Sign Up"}
+                        {isSignUp ? "Iniciar Sesión" : "Regístrate"}
                     </button>
                 </div>
             </div>

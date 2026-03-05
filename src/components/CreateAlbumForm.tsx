@@ -76,10 +76,6 @@ export default function CreateAlbumForm() {
         ctx.fillStyle = '#000'
         ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-        // Draw logic mostly matches CSS transform 
-        // We need to map the CSS visual representation to the Canvas 
-        // This is a simplified approximation
-
         const container = containerRef.current
         const scaleX = canvas.width / container.clientWidth
         const scaleY = canvas.height / container.clientHeight
@@ -164,7 +160,9 @@ export default function CreateAlbumForm() {
 
     return (
         <form onSubmit={handleSubmit} className="login-card">
-            <h2 className="login-title" style={{ fontSize: '1.5rem', marginBottom: '24px' }}>Nuevo Álbum</h2>
+            <h2 className="login-title" style={{ fontSize: '1.5rem', marginBottom: '24px' }}>
+                📸 Nuevo Álbum
+            </h2>
 
             {error && <div className="message message-error">{error}</div>}
 
@@ -172,16 +170,26 @@ export default function CreateAlbumForm() {
             <div className="form-group">
                 <label className="label">Portada (Arrastra para ajustar)</label>
                 {!imageSrc ? (
-                    <div style={{ border: '2px dashed #5f6368', borderRadius: '8px', padding: '32px', textAlign: 'center', cursor: 'pointer', position: 'relative' }}>
+                    <div style={{
+                        border: '2px dashed var(--primary)',
+                        borderRadius: 'var(--radius)',
+                        padding: '40px',
+                        textAlign: 'center',
+                        cursor: 'pointer',
+                        position: 'relative',
+                        backgroundColor: 'var(--primary-light)',
+                        transition: 'all 0.3s ease'
+                    }}>
                         <input
                             type="file"
                             accept="image/*"
                             onChange={handleFileChange}
                             style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }}
                         />
-                        <div className="flex-center" style={{ flexDirection: 'column', color: '#9aa0a6' }}>
-                            <Upload size={24} />
-                            <span>Click para subir imagen</span>
+                        <div className="flex-center" style={{ flexDirection: 'column', color: 'var(--primary)', gap: '8px' }}>
+                            <Upload size={28} />
+                            <span style={{ fontWeight: 700 }}>Click para subir imagen</span>
+                            <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>JPG, PNG o WEBP</span>
                         </div>
                     </div>
                 ) : (
@@ -190,12 +198,13 @@ export default function CreateAlbumForm() {
                             ref={containerRef}
                             style={{
                                 position: 'relative',
-                                borderRadius: '8px',
+                                borderRadius: 'var(--radius)',
                                 overflow: 'hidden',
                                 aspectRatio: '16/9',
-                                backgroundColor: '#000',
+                                backgroundColor: 'var(--background)',
                                 cursor: isDragging ? 'grabbing' : 'grab',
-                                touchAction: 'none'
+                                touchAction: 'none',
+                                border: '1px solid var(--border)'
                             }}
                             onMouseDown={handleMouseDown}
                             onMouseMove={handleMouseMove}
@@ -218,12 +227,12 @@ export default function CreateAlbumForm() {
                             />
 
                             {/* Overlay Guidelines */}
-                            <div style={{ position: 'absolute', inset: 0, border: '1px solid rgba(255,255,255,0.2)', pointerEvents: 'none' }} />
+                            <div style={{ position: 'absolute', inset: 0, border: '2px solid rgba(232, 160, 191, 0.3)', pointerEvents: 'none', borderRadius: 'var(--radius)' }} />
                         </div>
 
                         {/* Zoom Control */}
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px' }}>
-                            <span style={{ fontSize: '12px', color: '#999' }}>Zoom:</span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
+                            <span style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: 700 }}>Zoom:</span>
                             <input
                                 type="range"
                                 min="1"
@@ -231,12 +240,15 @@ export default function CreateAlbumForm() {
                                 step="0.1"
                                 value={zoom}
                                 onChange={(e) => setZoom(parseFloat(e.target.value))}
-                                style={{ flex: 1 }}
+                                style={{ flex: 1, accentColor: 'var(--primary)' }}
                             />
                             <button
                                 type="button"
                                 onClick={() => { setImageSrc(null); setOriginalImage(null); }}
-                                style={{ color: '#ff4d4f', border: 'none', background: 'none', fontSize: '12px', cursor: 'pointer' }}
+                                style={{
+                                    color: 'var(--error)', border: 'none', background: 'none',
+                                    fontSize: '12px', cursor: 'pointer', fontWeight: 700
+                                }}
                             >
                                 Cambiar
                             </button>
@@ -259,13 +271,13 @@ export default function CreateAlbumForm() {
             <div className="form-group">
                 <label className="label">Fecha</label>
                 <div style={{ position: 'relative' }}>
-                    <Calendar size={16} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#999' }} />
+                    <Calendar size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-tertiary)' }} />
                     <input
                         type="date"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
                         className="input"
-                        style={{ paddingLeft: '36px', colorScheme: 'dark' }}
+                        style={{ paddingLeft: '38px', colorScheme: 'light' }}
                         required
                     />
                 </div>
@@ -280,7 +292,7 @@ export default function CreateAlbumForm() {
                     className="input"
                     type="url"
                 />
-                <p style={{ fontSize: '0.75rem', color: '#9aa0a6', marginTop: '4px' }}>
+                <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>
                     Link donde está el álbum completo
                 </p>
             </div>
@@ -292,7 +304,7 @@ export default function CreateAlbumForm() {
                         <span>Creando...</span>
                     </div>
                 ) : (
-                    "Crear Álbum"
+                    "✨ Crear Álbum"
                 )}
             </button>
         </form>

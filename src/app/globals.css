@@ -1,26 +1,59 @@
 :root {
-  --background: #191919;
-  /* Notion Dark Mode Background */
-  --surface: #202020;
-  /* Slightly lighter for cards/hovers */
-  --foreground: #ffffff;
-  --primary: #2eaadc;
-  /* Notion Blue */
-  --primary-hover: #268db5;
-  --border: #333333;
-  --error: #eb5757;
-  --success: #27ae60;
-  --radius: 3px;
-  /* Notion uses smaller radius */
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  /* 🎨 Warm Family-Friendly Palette */
+  --background: #FBF8F4;
+  /* Warm cream */
+  --surface: #FFFFFF;
+  /* Pure white for cards */
+  --foreground: #4A4458;
+  /* Soft dark purple */
+  --text-secondary: #8E8A9A;
+  /* Muted lavender gray */
+  --text-tertiary: #B5B0C0;
+  /* Light lavender */
+
+  --primary: #E8A0BF;
+  /* Soft rose pink */
+  --primary-hover: #D88AAE;
+  /* Deeper rose */
+  --primary-light: #FCF0F5;
+  /* Very light pink */
+
+  --accent: #FCE4B8;
+  /* Warm golden cream */
+  --accent-2: #CEDEEF;
+  /* Soft sky blue */
+
+  --border: #EDE8E3;
+  /* Warm light border */
+  --border-hover: #DDD5CC;
+  /* Slightly darker border */
+
+  --error: #E57373;
+  /* Soft red */
+  --error-bg: #FFF0F0;
+  --success: #81C784;
+  /* Soft green */
+  --success-bg: #F0FFF0;
+
+  --radius: 14px;
+  /* Soft generous corners */
+  --radius-sm: 10px;
+  --radius-lg: 20px;
+
+  --shadow-sm: 0 2px 8px rgba(74, 68, 88, 0.06);
+  --shadow-md: 0 4px 20px rgba(74, 68, 88, 0.08);
+  --shadow-lg: 0 8px 32px rgba(74, 68, 88, 0.12);
+  --shadow-hover: 0 8px 30px rgba(232, 160, 191, 0.15);
+
+  --font-sans: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+
   --spacing-sm: 8px;
   --spacing-md: 16px;
   --spacing-lg: 24px;
 
   /* Grid Variables */
   --card-min-width: 260px;
-  /* Notion "Medium" size approx */
-  --card-gap: 16px;
+  --card-gap: 20px;
 }
 
 * {
@@ -36,6 +69,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -43,58 +78,106 @@ a {
   text-decoration: none;
 }
 
+/* --- Animations --- */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
 /* --- Layout --- */
 
 .app-header {
-  height: 48px;
-  /* Tighter header like Notion */
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
-  background-color: var(--background);
+  padding: 0 24px;
+  background-color: rgba(251, 248, 244, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 100;
   font-size: 14px;
+  border-bottom: 1px solid var(--border);
 }
 
 .logo {
-  font-weight: 500;
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 18px;
+  color: var(--foreground);
 }
 
 .logo span {
-  font-weight: 600;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), #C084A0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .main-content {
-  padding: 24px 96px;
-  /* Similar to Notion page padding */
+  padding: 32px 96px;
   width: 100%;
   max-width: 1400px;
-  /* Max width for readable content */
   margin: 0 auto;
+  animation: fadeIn 0.5s ease-out;
 }
 
 @media (max-width: 900px) {
   .main-content {
-    padding: 24px 48px;
+    padding: 24px 32px;
   }
 }
 
 @media (max-width: 600px) {
   .main-content {
-    padding: 16px 16px;
+    padding: 20px 16px;
   }
 }
 
-/* --- Notion-Style Grid --- */
+/* --- Grid --- */
 .gallery-grid {
   display: grid;
-  /* Notion-style responsiveness: fill with items of min 260px width */
   grid-template-columns: repeat(auto-fill, minmax(var(--card-min-width), 1fr));
   gap: var(--card-gap);
   width: 100%;
@@ -102,48 +185,49 @@ a {
 
 @media (max-width: 600px) {
   .gallery-grid {
-    /* Double column on mobile, allowing smaller cards */
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 
   :root {
     --card-min-width: 140px;
-    /* Allow smaller cards on mobile */
   }
 }
 
 /* --- Components --- */
 
-/* Login Helpers */
+/* Login */
 .login-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--spacing-md);
+  background: linear-gradient(160deg, #FBF8F4 0%, #FCF0F5 40%, #EDE4F3 70%, #CEDEEF 100%);
 }
 
 .login-card {
-  background-color: var(--background);
+  background-color: var(--surface);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   padding: 40px;
   width: 100%;
-  max-width: 400px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  max-width: 420px;
+  box-shadow: var(--shadow-lg);
+  animation: fadeInScale 0.5s ease-out;
 }
 
 .login-title {
   text-align: center;
   font-size: 1.5rem;
-  /* Smaller, cleaner title */
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 24px;
+  color: var(--foreground);
 }
 
+/* Forms */
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -151,28 +235,33 @@ a {
 
 .label {
   font-size: 12px;
-  color: #999;
-  font-weight: 500;
+  color: var(--text-secondary);
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .input {
   width: 100%;
-  padding: 8px 10px;
-  border-radius: var(--radius);
-  background-color: #252525;
-  border: 1px solid var(--border);
-  color: white;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background-color: var(--background);
+  border: 1.5px solid var(--border);
+  color: var(--foreground);
   font-size: 14px;
-  transition: all 0.2s;
+  font-family: var(--font-sans);
+  transition: all 0.25s ease;
 }
 
 .input:focus {
   outline: none;
   border-color: var(--primary);
-  background-color: #2a2a2a;
-  box-shadow: 0 0 0 2px rgba(46, 170, 220, 0.2);
+  background-color: var(--surface);
+  box-shadow: 0 0 0 3px rgba(232, 160, 191, 0.15);
+}
+
+.input::placeholder {
+  color: var(--text-tertiary);
 }
 
 /* Buttons */
@@ -180,62 +269,75 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 12px;
-  border-radius: var(--radius);
-  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
   cursor: pointer;
   border: none;
   font-size: 14px;
-  transition: background-color 0.2s;
-  height: 32px;
+  font-family: var(--font-sans);
+  transition: all 0.25s ease;
+  height: 36px;
   user-select: none;
+}
+
+.btn:active {
+  transform: scale(0.97);
 }
 
 .btn-full {
   width: 100%;
-  height: 36px;
+  height: 42px;
 }
 
 .btn-primary {
-  background-color: var(--primary);
+  background: linear-gradient(135deg, var(--primary), #D88AAE);
   color: white;
+  box-shadow: 0 2px 8px rgba(232, 160, 191, 0.3);
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-hover);
+  box-shadow: 0 4px 16px rgba(232, 160, 191, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.97);
 }
 
 .btn-link {
   background: none;
-  color: #aaa;
+  color: var(--text-secondary);
   padding: 0;
   font-size: 13px;
+  font-weight: 600;
 }
 
 .btn-link:hover {
-  text-decoration: underline;
-  color: #fff;
+  color: var(--primary);
+  text-decoration: none;
 }
 
 /* Messages */
 .message {
-  padding: 8px 12px;
-  border-radius: var(--radius);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
   margin-bottom: 16px;
   font-size: 13px;
+  font-weight: 600;
   border: 1px solid transparent;
 }
 
 .message-error {
-  background-color: rgba(235, 87, 87, 0.1);
+  background-color: var(--error-bg);
   color: var(--error);
-  border-color: rgba(235, 87, 87, 0.2);
+  border-color: #FADEDE;
 }
 
 .message-success {
-  background-color: rgba(39, 174, 96, 0.1);
-  color: var(--success);
-  border-color: rgba(39, 174, 96, 0.2);
+  background-color: var(--success-bg);
+  color: #4CAF50;
+  border-color: #D4F0D4;
 }
 
 /* Utilities */
@@ -252,4 +354,15 @@ a {
   align-items: center;
   justify-content: center;
   gap: 8px;
+}
+
+/* Spinner */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
 }

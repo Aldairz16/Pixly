@@ -126,11 +126,22 @@ export default function GalleryView({ gallery, initialAlbums, isOwner }: Props) 
 
     return (
         <>
-            <header className="app-header" style={{ height: 'auto', padding: '16px', flexDirection: 'column', gap: '16px', alignItems: 'stretch' }}>
+            <header className="app-header" style={{
+                height: 'auto', padding: '20px 24px', flexDirection: 'column',
+                gap: '16px', alignItems: 'stretch',
+                background: 'rgba(251, 248, 244, 0.9)',
+                backdropFilter: 'blur(12px)'
+            }}>
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1 }}>
                         {isOwner && (
-                            <Link href="/" style={{ color: '#999', display: 'flex', alignItems: 'center', padding: '4px' }}>
+                            <Link href="/" style={{
+                                color: 'var(--text-secondary)',
+                                display: 'flex', alignItems: 'center',
+                                padding: '6px',
+                                borderRadius: '10px',
+                                transition: 'all 0.2s ease'
+                            }}>
                                 <ArrowLeft size={20} />
                             </Link>
                         )}
@@ -141,28 +152,36 @@ export default function GalleryView({ gallery, initialAlbums, isOwner }: Props) 
                                     value={galleryTitle}
                                     onChange={(e) => setGalleryTitle(e.target.value)}
                                     className="input"
-                                    style={{ fontSize: '1.5rem', fontWeight: 'bold', padding: '4px 8px', width: 'auto', minWidth: '200px' }}
+                                    style={{ fontSize: '1.5rem', fontWeight: 'bold', padding: '6px 10px', width: 'auto', minWidth: '200px' }}
                                     autoFocus
                                 />
-                                <button onClick={handleSaveTitle} className="btn btn-primary" style={{ padding: '8px' }}><Check size={16} /></button>
-                                <button onClick={() => { setIsEditingTitle(false); setGalleryTitle(gallery.title); }} className="btn" style={{ padding: '8px' }}><X size={16} /></button>
+                                <button onClick={handleSaveTitle} className="btn btn-primary" style={{ padding: '8px', borderRadius: '10px' }}>
+                                    <Check size={16} />
+                                </button>
+                                <button onClick={() => { setIsEditingTitle(false); setGalleryTitle(gallery.title); }}
+                                    className="btn"
+                                    style={{ padding: '8px', backgroundColor: 'var(--background)', border: '1px solid var(--border)', borderRadius: '10px' }}
+                                >
+                                    <X size={16} />
+                                </button>
                             </div>
                         ) : (
-                            <div className="group" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                <h1 style={{ fontSize: '1.75rem', fontWeight: 'bold' }}>{galleryTitle}</h1>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--foreground)' }}>{galleryTitle}</h1>
                                 {isOwner && (
                                     <button
                                         onClick={() => setIsEditingTitle(true)}
                                         className="btn"
                                         style={{
                                             backgroundColor: 'transparent',
-                                            color: '#999',
-                                            border: '1px solid transparent',
+                                            color: 'var(--text-tertiary)',
+                                            border: 'none',
                                             padding: '6px',
                                             display: 'flex',
                                             alignItems: 'center',
-                                            transition: 'color 0.2s, background-color 0.2s',
-                                            cursor: 'pointer'
+                                            transition: 'color 0.2s',
+                                            cursor: 'pointer',
+                                            borderRadius: '8px'
                                         }}
                                         title="Editar Título"
                                     >
@@ -173,11 +192,11 @@ export default function GalleryView({ gallery, initialAlbums, isOwner }: Props) 
                         )}
                     </div>
 
-                    <div className="header-actions">
+                    <div className="header-actions" style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                         {isOwner && (
                             <>
                                 <ShareButton galleryId={gallery.id} initialIsPublic={gallery.is_public} />
-                                <Link href={`/create?galleryId=${gallery.id}`} className="btn btn-primary" style={{ height: '32px' }}>
+                                <Link href={`/create?galleryId=${gallery.id}`} className="btn btn-primary" style={{ height: '36px', borderRadius: '12px' }}>
                                     <Plus size={16} style={{ marginRight: '4px' }} />
                                     <span>Nuevo Álbum</span>
                                 </Link>
@@ -190,13 +209,13 @@ export default function GalleryView({ gallery, initialAlbums, isOwner }: Props) 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
                     {/* Search */}
                     <div style={{ position: 'relative', flex: 1, minWidth: '200px', maxWidth: '400px' }}>
-                        <Search size={16} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: '#999' }} />
+                        <Search size={16} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-tertiary)' }} />
                         <input
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Buscar álbumes..."
                             className="input"
-                            style={{ paddingLeft: '36px', height: '36px' }}
+                            style={{ paddingLeft: '38px', height: '38px' }}
                         />
                     </div>
 
@@ -205,17 +224,28 @@ export default function GalleryView({ gallery, initialAlbums, isOwner }: Props) 
                         <button
                             onClick={() => setShowSortMenu(!showSortMenu)}
                             className="btn"
-                            style={{ height: '36px', backgroundColor: '#252525', border: '1px solid #333', paddingRight: '8px' }}
+                            style={{
+                                height: '38px',
+                                backgroundColor: 'var(--surface)',
+                                border: '1.5px solid var(--border)',
+                                paddingRight: '10px',
+                                color: 'var(--text-secondary)',
+                                borderRadius: 'var(--radius-sm)',
+                                fontWeight: 600
+                            }}
                         >
-                            <span style={{ marginRight: '4px' }}>Ordenar por</span>
+                            <span style={{ marginRight: '6px' }}>Ordenar por</span>
                             <ChevronDown size={14} />
                         </button>
                         {showSortMenu && (
                             <>
                                 <div style={{
-                                    position: 'absolute', top: '100%', right: 0, marginTop: '4px',
-                                    backgroundColor: '#252525', border: '1px solid #333', borderRadius: '4px',
-                                    zIndex: 50, width: '180px', boxShadow: '0 4px 12px rgba(0,0,0,0.5)'
+                                    position: 'absolute', top: '100%', right: 0, marginTop: '6px',
+                                    backgroundColor: 'var(--surface)', border: '1px solid var(--border)',
+                                    borderRadius: 'var(--radius-sm)',
+                                    zIndex: 50, width: '190px', boxShadow: 'var(--shadow-lg)',
+                                    padding: '4px',
+                                    animation: 'slideDown 0.2s ease-out'
                                 }}>
                                     {[
                                         { label: 'Fecha (Reciente)', value: 'date_desc' },
@@ -227,9 +257,13 @@ export default function GalleryView({ gallery, initialAlbums, isOwner }: Props) 
                                             key={opt.value}
                                             onClick={() => { setSortBy(opt.value as SortOption); setShowSortMenu(false); }}
                                             style={{
-                                                display: 'block', width: '100%', textAlign: 'left', padding: '8px 12px',
-                                                backgroundColor: sortBy === opt.value ? '#333' : 'transparent',
-                                                border: 'none', color: 'white', cursor: 'pointer', fontSize: '13px'
+                                                display: 'block', width: '100%', textAlign: 'left',
+                                                padding: '8px 12px',
+                                                backgroundColor: sortBy === opt.value ? 'var(--primary-light)' : 'transparent',
+                                                color: sortBy === opt.value ? 'var(--primary)' : 'var(--foreground)',
+                                                border: 'none', cursor: 'pointer', fontSize: '13px',
+                                                borderRadius: '8px', fontWeight: sortBy === opt.value ? 700 : 600,
+                                                transition: 'background-color 0.15s'
                                             }}
                                         >
                                             {opt.label}
@@ -246,17 +280,17 @@ export default function GalleryView({ gallery, initialAlbums, isOwner }: Props) 
             <main className="main-content">
                 {Object.keys(groupedAlbums).length > 0 ? (
                     Object.entries(groupedAlbums).map(([groupTitle, groupAlbums]) => (
-                        <div key={groupTitle} style={{ marginBottom: '32px' }}>
+                        <div key={groupTitle} style={{ marginBottom: '36px', animation: 'fadeIn 0.4s ease-out' }}>
                             <div style={{
-                                display: 'flex', alignItems: 'center', gap: '8px',
-                                marginBottom: '16px', color: '#999', fontSize: '14px', fontWeight: 600
+                                display: 'flex', alignItems: 'center', gap: '10px',
+                                marginBottom: '18px', color: 'var(--text-secondary)',
+                                fontSize: '14px', fontWeight: 700
                             }}>
                                 <Calendar size={14} />
                                 <span>{groupTitle}</span>
-                                <div style={{ height: '1px', flex: 1, backgroundColor: '#333' }} />
+                                <div style={{ height: '1px', flex: 1, backgroundColor: 'var(--border)' }} />
                             </div>
 
-                            {/* Bug Fix: Ensure this container has width/height and items are visible */}
                             <div className="gallery-grid" style={{ minHeight: '100px' }}>
                                 {groupAlbums.map((album) => (
                                     <AlbumCard key={album.id} album={album} isOwner={isOwner} />
@@ -265,11 +299,29 @@ export default function GalleryView({ gallery, initialAlbums, isOwner }: Props) 
                         </div>
                     ))
                 ) : (
-                    <div style={{ textAlign: 'center', padding: '64px 0', opacity: 0.6 }}>
-                        {searchQuery ? <p>No se encontraron álbumes "{searchQuery}"</p> : <p>No hay álbumes en esta galería.</p>}
+                    <div style={{
+                        textAlign: 'center', padding: '80px 0',
+                        animation: 'fadeIn 0.5s ease-out'
+                    }}>
+                        {searchQuery ? (
+                            <div>
+                                <p style={{ fontSize: '15px', color: 'var(--text-secondary)' }}>
+                                    No se encontraron álbumes &quot;{searchQuery}&quot;
+                                </p>
+                            </div>
+                        ) : (
+                            <div>
+                                <p style={{ fontSize: '16px', fontWeight: 700, color: 'var(--foreground)', marginBottom: '8px' }}>
+                                    Esta galería está vacía
+                                </p>
+                                <p style={{ fontSize: '14px', color: 'var(--text-secondary)', marginBottom: '20px' }}>
+                                    ¡Agrega tu primer álbum de fotos!
+                                </p>
+                            </div>
+                        )}
                         {isOwner && !searchQuery && (
-                            <Link href={`/create?galleryId=${gallery.id}`} style={{ color: 'var(--primary)', marginTop: '8px', display: 'inline-block' }}>
-                                Crear Álbum
+                            <Link href={`/create?galleryId=${gallery.id}`} className="btn btn-primary">
+                                📸 Crear Álbum
                             </Link>
                         )}
                     </div>

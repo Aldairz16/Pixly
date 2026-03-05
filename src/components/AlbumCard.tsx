@@ -77,17 +77,27 @@ export default function AlbumCard({ album, isOwner }: { album: Album, isOwner?: 
         <>
             <div
                 style={{
-                    borderRadius: '3px', /* Notion radius */
-                    // overflow: 'hidden', /* REMOVED to allow menu to pop out */
-                    backgroundColor: '#252525',
-                    transition: 'background-color 0.2s',
-                    boxShadow: 'rgba(15, 15, 15, 0.1) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 2px 4px',
+                    borderRadius: 'var(--radius)',
+                    backgroundColor: 'var(--surface)',
+                    transition: 'all 0.3s ease',
+                    boxShadow: 'var(--shadow-sm)',
+                    border: '1px solid var(--border)',
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
-                    position: 'relative'
+                    position: 'relative',
+                    overflow: 'visible'
                 }}
-                className="group hover:bg-[#2a2a2a]"
+                onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)'
+                    e.currentTarget.style.boxShadow = 'var(--shadow-hover)'
+                    e.currentTarget.style.borderColor = 'var(--primary)'
+                }}
+                onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)'
+                    e.currentTarget.style.boxShadow = 'var(--shadow-sm)'
+                    e.currentTarget.style.borderColor = 'var(--border)'
+                }}
             >
                 {/* Image Container - Clickable */}
                 <CardLink className="block" >
@@ -95,11 +105,10 @@ export default function AlbumCard({ album, isOwner }: { album: Album, isOwner?: 
                         width: '100%',
                         aspectRatio: '16/9',
                         overflow: 'hidden',
-                        backgroundColor: '#202020',
+                        backgroundColor: 'var(--background)',
                         position: 'relative',
-                        // Restore radius manually since parent overflow is visible
-                        borderTopLeftRadius: '3px',
-                        borderTopRightRadius: '3px'
+                        borderTopLeftRadius: 'var(--radius)',
+                        borderTopRightRadius: 'var(--radius)'
                     }}>
                         <img
                             src={album.cover_url}
@@ -109,7 +118,7 @@ export default function AlbumCard({ album, isOwner }: { album: Album, isOwner?: 
                                 height: '100%',
                                 objectFit: 'cover',
                                 objectPosition: 'center',
-                                transition: 'transform 0.4s ease',
+                                transition: 'transform 0.5s ease',
                                 opacity: isDeleting ? 0.5 : 1,
                                 display: 'block'
                             }}
@@ -118,14 +127,14 @@ export default function AlbumCard({ album, isOwner }: { album: Album, isOwner?: 
                 </CardLink>
 
                 {/* Content Container */}
-                <div style={{ padding: '8px 10px 10px 10px', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <div style={{ padding: '12px 14px 14px 14px', flex: 1, display: 'flex', flexDirection: 'column' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                         {/* Title and Date - Clickable */}
                         <div style={{ flex: 1, minWidth: 0, marginRight: '8px' }}>
                             <CardLink className="block">
                                 <h3 style={{
                                     fontSize: '14px',
-                                    fontWeight: 500,
+                                    fontWeight: 700,
                                     color: 'var(--foreground)',
                                     whiteSpace: 'nowrap',
                                     overflow: 'hidden',
@@ -135,16 +144,24 @@ export default function AlbumCard({ album, isOwner }: { album: Album, isOwner?: 
                                     {album.title}
                                 </h3>
                                 {formattedDate && (
-                                    <div style={{ fontSize: '11px', color: '#666', marginTop: '2px' }}>
+                                    <div style={{
+                                        fontSize: '12px',
+                                        color: 'var(--text-secondary)',
+                                        marginTop: '3px',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '4px'
+                                    }}>
+                                        <Calendar size={11} />
                                         <span style={{ textTransform: 'capitalize' }}>{formattedDate}</span>
                                     </div>
                                 )}
                             </CardLink>
                         </div>
 
-                        {/* Actions or Ext Link Icon - NOT wrapped in global link to prevent conflicts */}
+                        {/* Actions or Ext Link Icon */}
                         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                            {hasExternalLink && !isOwner && <ExternalLink size={12} style={{ color: '#666' }} />}
+                            {hasExternalLink && !isOwner && <ExternalLink size={12} style={{ color: 'var(--text-tertiary)' }} />}
 
                             {isOwner && (
                                 <div style={{ position: 'relative' }}>
@@ -152,16 +169,24 @@ export default function AlbumCard({ album, isOwner }: { album: Album, isOwner?: 
                                         onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowMenu(!showMenu); }}
                                         style={{
                                             backgroundColor: 'transparent',
-                                            color: '#999',
+                                            color: 'var(--text-secondary)',
                                             border: 'none',
                                             padding: '4px',
                                             cursor: 'pointer',
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            borderRadius: '4px'
+                                            borderRadius: '8px',
+                                            transition: 'all 0.2s ease'
                                         }}
-                                        className="hover:bg-[#333] hover:text-white"
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.backgroundColor = 'var(--background)'
+                                            e.currentTarget.style.color = 'var(--foreground)'
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.backgroundColor = 'transparent'
+                                            e.currentTarget.style.color = 'var(--text-secondary)'
+                                        }}
                                         title="Opciones"
                                     >
                                         <MoreVertical size={16} />
@@ -170,22 +195,38 @@ export default function AlbumCard({ album, isOwner }: { album: Album, isOwner?: 
                                     {showMenu && (
                                         <>
                                             <div style={{
-                                                position: 'absolute', top: '100%', right: 0, marginTop: '4px',
-                                                backgroundColor: '#252525', border: '1px solid #333', borderRadius: '4px',
-                                                padding: '4px', width: '120px', boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-                                                zIndex: 100 // Increased zIndex
+                                                position: 'absolute', top: '100%', right: 0, marginTop: '6px',
+                                                backgroundColor: 'var(--surface)', border: '1px solid var(--border)',
+                                                borderRadius: 'var(--radius-sm)',
+                                                padding: '4px', width: '140px', boxShadow: 'var(--shadow-lg)',
+                                                zIndex: 100,
+                                                animation: 'slideDown 0.2s ease-out'
                                             }}>
                                                 <button
                                                     onClick={(e) => { e.preventDefault(); e.stopPropagation(); setShowEditDialog(true); setShowMenu(false); }}
-                                                    style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%', padding: '8px', border: 'none', background: 'transparent', color: 'white', cursor: 'pointer', fontSize: '13px', textAlign: 'left' }}
-                                                    className="hover:bg-[#333]"
+                                                    style={{
+                                                        display: 'flex', alignItems: 'center', gap: '8px', width: '100%',
+                                                        padding: '8px 10px', border: 'none', background: 'transparent',
+                                                        color: 'var(--foreground)', cursor: 'pointer', fontSize: '13px',
+                                                        textAlign: 'left', borderRadius: '8px', fontWeight: 600,
+                                                        transition: 'background-color 0.15s'
+                                                    }}
+                                                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--background)'}
+                                                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                                                 >
                                                     <Edit2 size={14} /> Editar
                                                 </button>
                                                 <button
                                                     onClick={handleDelete}
-                                                    style={{ display: 'flex', alignItems: 'center', gap: '8px', width: '100%', padding: '8px', border: 'none', background: 'transparent', color: '#ff4d4f', cursor: 'pointer', fontSize: '13px', textAlign: 'left' }}
-                                                    className="hover:bg-[#333]"
+                                                    style={{
+                                                        display: 'flex', alignItems: 'center', gap: '8px', width: '100%',
+                                                        padding: '8px 10px', border: 'none', background: 'transparent',
+                                                        color: 'var(--error)', cursor: 'pointer', fontSize: '13px',
+                                                        textAlign: 'left', borderRadius: '8px', fontWeight: 600,
+                                                        transition: 'background-color 0.15s'
+                                                    }}
+                                                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--error-bg)'}
+                                                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                                                 >
                                                     <Trash2 size={14} /> Eliminar
                                                 </button>

@@ -45,13 +45,39 @@ export default function EditAlbumDialog({ album, onClose }: { album: Album, onCl
     }
 
     return (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.7)' }}>
-            <div style={{ backgroundColor: '#191919', border: '1px solid #333', borderRadius: '8px', padding: '24px', width: '100%', maxWidth: '400px', position: 'relative' }}>
-                <button onClick={onClose} style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', color: '#999', cursor: 'pointer' }}>
+        <div style={{
+            position: 'fixed', inset: 0, zIndex: 100,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            backgroundColor: 'rgba(74, 68, 88, 0.3)',
+            backdropFilter: 'blur(6px)'
+        }}>
+            <div style={{
+                backgroundColor: 'var(--surface)',
+                border: '1px solid var(--border)',
+                borderRadius: 'var(--radius-lg)',
+                padding: '28px',
+                width: '100%',
+                maxWidth: '420px',
+                position: 'relative',
+                boxShadow: 'var(--shadow-lg)',
+                animation: 'fadeInScale 0.3s ease-out'
+            }}>
+                <button onClick={onClose} style={{
+                    position: 'absolute', top: '16px', right: '16px',
+                    background: 'none', border: 'none',
+                    color: 'var(--text-tertiary)', cursor: 'pointer',
+                    padding: '4px', borderRadius: '8px',
+                    transition: 'color 0.2s'
+                }}>
                     <X size={20} />
                 </button>
 
-                <h2 style={{ fontSize: '1.25rem', marginBottom: '24px', fontWeight: 600 }}>Editar Álbum</h2>
+                <h2 style={{
+                    fontSize: '1.25rem', marginBottom: '24px',
+                    fontWeight: 800, color: 'var(--foreground)'
+                }}>
+                    ✏️ Editar Álbum
+                </h2>
 
                 <form onSubmit={handleSave}>
                     <div className="form-group">
@@ -71,7 +97,7 @@ export default function EditAlbumDialog({ album, onClose }: { album: Album, onCl
                             type="date"
                             value={date}
                             onChange={e => setDate(e.target.value)}
-                            style={{ colorScheme: 'dark' }}
+                            style={{ colorScheme: 'light' }}
                         />
                     </div>
 
@@ -85,11 +111,17 @@ export default function EditAlbumDialog({ album, onClose }: { album: Album, onCl
                         />
                     </div>
 
-                    <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '24px' }}>
-                        <button type="button" onClick={onClose} className="btn" style={{ backgroundColor: 'transparent', border: '1px solid #333' }}>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '24px' }}>
+                        <button type="button" onClick={onClose} className="btn" style={{
+                            backgroundColor: 'var(--background)',
+                            border: '1.5px solid var(--border)',
+                            color: 'var(--text-secondary)',
+                            borderRadius: 'var(--radius-sm)',
+                            fontWeight: 700
+                        }}>
                             Cancelar
                         </button>
-                        <button type="submit" disabled={loading} className="btn btn-primary">
+                        <button type="submit" disabled={loading} className="btn btn-primary" style={{ borderRadius: 'var(--radius-sm)' }}>
                             {loading ? <Loader2 className="animate-spin" size={16} /> : "Guardar"}
                         </button>
                     </div>

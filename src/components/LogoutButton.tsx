@@ -19,9 +19,12 @@ export default function LogoutButton() {
             onClick={handleLogout}
             className="btn"
             style={{
-                backgroundColor: 'transparent',
-                color: '#999',
-                border: '1px solid #333'
+                backgroundColor: 'var(--surface)',
+                color: 'var(--text-secondary)',
+                border: '1.5px solid var(--border)',
+                borderRadius: 'var(--radius-sm)',
+                fontWeight: 700,
+                transition: 'all 0.2s ease'
             }}
         >
             <LogOut size={14} style={{ marginRight: '6px' }} />

@@ -36,9 +36,11 @@ export default function ShareButton({ galleryId, initialIsPublic }: { galleryId:
                 onClick={() => setShowMenu(!showMenu)}
                 className="btn"
                 style={{
-                    backgroundColor: isPublic ? 'rgba(39, 174, 96, 0.1)' : 'transparent',
-                    color: isPublic ? '#27ae60' : '#999',
-                    border: isPublic ? '1px solid rgba(39, 174, 96, 0.2)' : '1px solid transparent'
+                    backgroundColor: isPublic ? 'var(--success-bg)' : 'var(--surface)',
+                    color: isPublic ? 'var(--success)' : 'var(--text-secondary)',
+                    border: isPublic ? '1.5px solid #D4F0D4' : '1.5px solid var(--border)',
+                    borderRadius: 'var(--radius-sm)',
+                    fontWeight: 700
                 }}
             >
                 {isPublic ? <Globe size={14} style={{ marginRight: '6px' }} /> : <Share2 size={14} style={{ marginRight: '6px' }} />}
@@ -51,24 +53,25 @@ export default function ShareButton({ galleryId, initialIsPublic }: { galleryId:
                     top: '100%',
                     right: 0,
                     marginTop: '8px',
-                    backgroundColor: '#252525',
-                    border: '1px solid #333',
-                    borderRadius: '4px',
-                    padding: '8px',
-                    width: '280px',
+                    backgroundColor: 'var(--surface)',
+                    border: '1px solid var(--border)',
+                    borderRadius: 'var(--radius)',
+                    padding: '12px',
+                    width: '300px',
                     zIndex: 200,
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
+                    boxShadow: 'var(--shadow-lg)',
+                    animation: 'slideDown 0.2s ease-out'
                 }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                {loading ? <Loader2 size={16} className="animate-spin" /> : (isPublic ? <Globe size={16} color="#27ae60" /> : <Lock size={16} color="#999" />)}
-                                <div style={{ fontSize: '13px' }}>
-                                    <div style={{ fontWeight: 500 }}>{isPublic ? 'Acceso Público' : 'Privado'}</div>
-                                    <div style={{ fontSize: '11px', color: '#888' }}>{isPublic ? 'Cualquiera con el link puede ver' : 'Solo tú puedes ver'}</div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                {loading ? <Loader2 size={16} className="animate-spin" /> : (isPublic ? <Globe size={16} color="var(--success)" /> : <Lock size={16} color="var(--text-secondary)" />)}
+                                <div style={{ fontSize: '13px', color: 'var(--foreground)' }}>
+                                    <div style={{ fontWeight: 700 }}>{isPublic ? 'Acceso Público' : 'Privado'}</div>
+                                    <div style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>{isPublic ? 'Cualquiera con el link puede ver' : 'Solo tú puedes ver'}</div>
                                 </div>
                             </div>
-                            <label className="switch" style={{ position: 'relative', display: 'inline-block', width: '32px', height: '18px' }}>
+                            <label style={{ position: 'relative', display: 'inline-block', width: '36px', height: '20px' }}>
                                 <input
                                     type="checkbox"
                                     checked={isPublic}
@@ -78,31 +81,41 @@ export default function ShareButton({ galleryId, initialIsPublic }: { galleryId:
                                 />
                                 <span style={{
                                     position: 'absolute', cursor: 'pointer', top: 0, left: 0, right: 0, bottom: 0,
-                                    backgroundColor: isPublic ? '#27ae60' : '#444',
-                                    borderRadius: '18px', transition: '.4s'
+                                    backgroundColor: isPublic ? 'var(--success)' : 'var(--border)',
+                                    borderRadius: '20px', transition: '.3s'
                                 }}>
                                     <span style={{
-                                        position: 'absolute', content: '""', height: '14px', width: '14px', left: '2px', bottom: '2px',
-                                        backgroundColor: 'white', borderRadius: '50%', transition: '.4s',
-                                        transform: isPublic ? 'translateX(14px)' : 'translateX(0)'
+                                        position: 'absolute', content: '""', height: '16px', width: '16px', left: '2px', bottom: '2px',
+                                        backgroundColor: 'white', borderRadius: '50%', transition: '.3s',
+                                        transform: isPublic ? 'translateX(16px)' : 'translateX(0)',
+                                        boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
                                     }} />
                                 </span>
                             </label>
                         </div>
 
                         {isPublic && (
-                            <div style={{ borderTop: '1px solid #333', paddingTop: '8px', marginTop: '4px' }}>
+                            <div style={{ borderTop: '1px solid var(--border)', paddingTop: '10px', marginTop: '4px' }}>
                                 <input
                                     readOnly
                                     value={`${window.location.origin}/gallery/${galleryId}`}
-                                    style={{ width: '100%', fontSize: '12px', padding: '6px', backgroundColor: '#191919', border: '1px solid #333', borderRadius: '3px', color: '#999', marginBottom: '8px' }}
+                                    style={{
+                                        width: '100%', fontSize: '12px', padding: '8px 10px',
+                                        backgroundColor: 'var(--background)', border: '1px solid var(--border)',
+                                        borderRadius: 'var(--radius-sm)', color: 'var(--text-secondary)',
+                                        marginBottom: '8px', fontFamily: 'var(--font-sans)'
+                                    }}
                                 />
                                 <button
                                     onClick={copyLink}
                                     className="btn btn-full"
-                                    style={{ backgroundColor: copied ? '#27ae60' : '#333', color: 'white', fontSize: '12px' }}
+                                    style={{
+                                        backgroundColor: copied ? 'var(--success)' : 'var(--foreground)',
+                                        color: 'white', fontSize: '13px',
+                                        borderRadius: 'var(--radius-sm)', fontWeight: 700
+                                    }}
                                 >
-                                    {copied ? <><Check size={14} style={{ marginRight: '6px' }} /> Copiado!</> : 'Copiar Link'}
+                                    {copied ? <><Check size={14} style={{ marginRight: '6px' }} /> ¡Copiado!</> : 'Copiar Link'}
                                 </button>
                             </div>
                         )}
