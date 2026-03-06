@@ -18,7 +18,9 @@ export default function EditAlbumDialog({ album, onClose }: { album: Album, onCl
     const supabase = createClient()
     const [loading, setLoading] = useState(false)
     const [title, setTitle] = useState(album.title)
-    const [date, setDate] = useState(album.album_date || (album.created_at ? new Date(album.created_at).toISOString().split('T')[0] : ''))
+    // Use local date parts to avoid UTC shift with toISOString()
+    const fallbackDate = album.created_at ? (() => { const d = new Date(album.created_at); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; })() : ''
+    const [date, setDate] = useState(album.album_date || fallbackDate)
     const [externalLink, setExternalLink] = useState(album.external_link || "")
 
     const handleSave = async (e: React.FormEvent) => {

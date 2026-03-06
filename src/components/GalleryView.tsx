@@ -81,8 +81,10 @@ export default function GalleryView({ gallery, initialAlbums, isOwner }: Props) 
         // 2. Sort
         result.sort((a, b) => {
             // Use album_date if available, otherwise created_at
-            const dateA = a.album_date ? new Date(a.album_date).getTime() : new Date(a.created_at).getTime()
-            const dateB = b.album_date ? new Date(b.album_date).getTime() : new Date(b.created_at).getTime()
+            // Append T00:00:00 to date-only strings to avoid UTC shift
+            const parseDate = (d: string) => new Date(d.length === 10 ? d + 'T00:00:00' : d)
+            const dateA = a.album_date ? parseDate(a.album_date).getTime() : new Date(a.created_at).getTime()
+            const dateB = b.album_date ? parseDate(b.album_date).getTime() : new Date(b.created_at).getTime()
 
             switch (sortBy) {
                 case 'date_desc':
@@ -107,7 +109,10 @@ export default function GalleryView({ gallery, initialAlbums, isOwner }: Props) 
 
         processedAlbums.forEach(album => {
             // Use album_date for grouping if available
-            const date = album.album_date ? new Date(album.album_date) : new Date(album.created_at)
+            // Append T00:00:00 to date-only strings to avoid UTC shift
+            const date = album.album_date
+                ? new Date(album.album_date.length === 10 ? album.album_date + 'T00:00:00' : album.album_date)
+                : new Date(album.created_at)
             // Helper for Spanish Month
             const months = [
                 "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",

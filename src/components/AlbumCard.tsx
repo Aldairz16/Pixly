@@ -38,10 +38,13 @@ export default function AlbumCard({ album, isOwner }: { album: Album, isOwner?: 
         }
     }
 
-    // Format Date
+    // Format Date — append T00:00:00 to date-only strings to avoid UTC shift
     const dateStr = album.album_date || album.created_at
-    const formattedDate = dateStr
-        ? new Date(dateStr).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })
+    const parsedDate = dateStr
+        ? new Date(dateStr.length === 10 ? dateStr + 'T00:00:00' : dateStr)
+        : null
+    const formattedDate = parsedDate
+        ? parsedDate.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })
         : ''
 
     // Logic to determine Link behavior

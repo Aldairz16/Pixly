@@ -13,7 +13,9 @@ export default function CreateAlbumForm() {
     const supabase = createClient()
     const [loading, setLoading] = useState(false)
     const [title, setTitle] = useState("")
-    const [date, setDate] = useState(new Date().toISOString().split('T')[0]) // Default to today
+    // Use local date parts to avoid UTC shift with toISOString()
+    const today = new Date()
+    const [date, setDate] = useState(`${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`)
     const [externalLink, setExternalLink] = useState("")
     const [error, setError] = useState<string | null>(null)
 
