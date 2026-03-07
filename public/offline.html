@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixly - Sin conexión</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #FBF8F4;
+      color: #4A4458;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+      text-align: center;
+    }
+    .offline-container {
+      max-width: 360px;
+    }
+    .offline-icon {
+      font-size: 64px;
+      margin-bottom: 24px;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #7EB5A8;
+    }
+    p {
+      font-size: 1rem;
+      color: #8E8A9A;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    button {
+      background: linear-gradient(135deg, #7EB5A8, #6DA49A);
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(126, 181, 168, 0.3);
+      transition: all 0.25s ease;
+    }
+    button:hover {
+      box-shadow: 0 4px 16px rgba(126, 181, 168, 0.4);
+      transform: translateY(-1px);
+    }
+    button:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-container">
+    <div class="offline-icon">📸</div>
+    <h1>Sin conexión</h1>
+    <p>No tienes conexión a internet. Revisa tu conexión e inténtalo de nuevo.</p>
+    <button onclick="window.location.reload()">Reintentar</button>
+  </div>
+</body>
+</html>
