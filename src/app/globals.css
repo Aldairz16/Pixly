@@ -123,11 +123,11 @@ a {
 /* --- Layout --- */
 
 .app-header {
-  height: 56px;
+  height: calc(56px + env(safe-area-inset-top, 0px));
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
+  padding: env(safe-area-inset-top, 0px) 24px 0;
   background-color: rgba(251, 248, 244, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
