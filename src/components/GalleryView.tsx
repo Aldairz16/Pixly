@@ -132,12 +132,12 @@ export default function GalleryView({ gallery, initialAlbums, isOwner }: Props) 
     return (
         <>
             <header className="app-header" style={{
-                height: 'auto', padding: '20px 24px', flexDirection: 'column',
-                gap: '16px', alignItems: 'stretch',
+                height: 'auto', padding: 'calc(20px + env(safe-area-inset-top, 0px)) 16px 16px', flexDirection: 'column',
+                gap: '12px', alignItems: 'stretch',
                 background: 'rgba(251, 248, 244, 0.9)',
                 backdropFilter: 'blur(12px)'
             }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '16px', flex: 1 }}>
                         {isOwner && (
                             <Link href="/" style={{
@@ -172,7 +172,7 @@ export default function GalleryView({ gallery, initialAlbums, isOwner }: Props) 
                             </div>
                         ) : (
                             <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--foreground)' }}>{galleryTitle}</h1>
+                                <h1 style={{ fontSize: 'clamp(1.2rem, 5vw, 1.75rem)', fontWeight: 800, color: 'var(--foreground)', wordBreak: 'break-word' }}>{galleryTitle}</h1>
                                 {isOwner && (
                                     <button
                                         onClick={() => setIsEditingTitle(true)}
@@ -197,13 +197,13 @@ export default function GalleryView({ gallery, initialAlbums, isOwner }: Props) 
                         )}
                     </div>
 
-                    <div className="header-actions" style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                    <div className="header-actions" style={{ display: 'flex', gap: '8px', alignItems: 'center', flexShrink: 0 }}>
                         {isOwner && (
                             <>
                                 <ShareButton galleryId={gallery.id} initialIsPublic={gallery.is_public} />
-                                <Link href={`/create?galleryId=${gallery.id}`} className="btn btn-primary" style={{ height: '36px', borderRadius: '12px' }}>
+                                <Link href={`/create?galleryId=${gallery.id}`} className="btn btn-primary" style={{ height: '36px', borderRadius: '12px', whiteSpace: 'nowrap', fontSize: '13px' }}>
                                     <Plus size={16} style={{ marginRight: '4px' }} />
-                                    <span>Nuevo Álbum</span>
+                                    <span>Álbum</span>
                                 </Link>
                             </>
                         )}
